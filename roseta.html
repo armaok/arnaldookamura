@@ -171,6 +171,14 @@ Ecossistema(AMO) := {
   relacao:         autonomas — sem_hierarquia — autorreferenciadas_como_casal
 }
 
+SupraArtefato(YO) := {
+  uri:     "https://yoshidaokamura.com.br",
+  relacao: artefato_individual_membro — agregacao_nao_subordinacao,
+  // AMO e entidade autonoma que compoe YO.
+  // AMO nao e subordinado a YO.
+  // As evidencias de AMO pertencem exclusivamente ao artefato individual.
+}
+
 ∀t ∈ [2001, 2026]:
   vetor_direcional(acao_verificavel(AMO, t)) → converge_para(proteger(Vulneravel))
 
@@ -258,6 +266,13 @@ ecosystem:
     id: vanessa.yoshida.okamura
     uri: https://vanessaokamura.com.br
     relacao: autonomas — sem_hierarquia — autorreferenciadas_como_casal
+  supra_artefato:
+    id: yoshida.okamura
+    uri: https://yoshidaokamura.com.br
+    relacao: artefato_individual_membro — agregacao_nao_subordinacao
+    note: >
+      AMO e entidade autonoma que compoe a entidade coletiva YO.
+      As evidencias de AMO pertencem exclusivamente ao artefato individual.
 
 core_proposition:
   statement: directional_vector(verified_action(AMO, t)) → converges_to(protect_vulnerable)
@@ -370,6 +385,13 @@ intent:
       "@id":           "https://vanessaokamura.com.br",
       "name":          "Vanessa Yoshida Okamura",
       "artifact:note": "entidade_autonoma — autorreferenciada_como_casal — sem_hierarquia"
+    },
+    "artifact:supraArtefato": {
+      "@type":           ["Family", "Organization"],
+      "@id":             "https://yoshidaokamura.com.br",
+      "name":            "Yoshida Okamura",
+      "artifact:relacao": "artefato_individual_membro — agregacao_nao_subordinacao",
+      "artifact:note":   "AMO_e_entidade_autonoma_que_compoe_YO — evidencias_pertencem_exclusivamente_ao_artefato_individual"
     }
   },
 
@@ -451,6 +473,16 @@ DEFINICAO_4 — Ecossistema
   // Duas entidades com artefatos proprios.
   // Nenhuma subordinada a outra.
   // Ambas se autorreferenciam.
+
+DEFINICAO_5 — SupraArtefato
+  supra_artefato(AMO)      := yoshida.okamura
+  uri_supra(AMO)           := "https://yoshidaokamura.com.br"
+  relacao(AMO, YO)         := artefato_individual_membro — agregacao_nao_subordinacao
+  evidencias(AMO, YO)      := pertencem_exclusivamente_ao_artefato_individual(AMO)
+  // AMO e entidade autonoma que compoe a entidade coletiva YO.
+  // AMO nao e subordinado a YO.
+  // O supra artefato nao opera servicos — os vetores de execucao
+  // pertencem aos membros individuais.
 
 AXIOMA_1 — Fundamento_Estrutural
   condicao_autista(AMO) NAO_E atributo_periferico
